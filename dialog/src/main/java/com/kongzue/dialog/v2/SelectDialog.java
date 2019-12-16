@@ -195,7 +195,7 @@ public class SelectDialog extends ModalBaseDialog {
             case STYLE_KONGZUE:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
                 alertDialog.setView(rootView);
-                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
+                alertDialog.show();
                 
                 bkg = (LinearLayout) rootView.findViewById(R.id.bkg);
                 txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
@@ -227,7 +227,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismissAllowingStateLoss();
+                        alertDialog.dismiss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
@@ -236,7 +236,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismissAllowingStateLoss();
+                        alertDialog.dismiss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
@@ -269,13 +269,13 @@ public class SelectDialog extends ModalBaseDialog {
                 }
                 
                 if (customView != null) alertDialog.setView(customView);
-                
-                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
+
+                alertDialog.show();
                 break;
             case STYLE_IOS:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
                 alertDialog.setView(rootView);
-                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
+                alertDialog.show();
                 
                 window.setWindowAnimations(R.style.iOSAnimStyle);
                 
@@ -308,7 +308,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismissAllowingStateLoss();
+                        alertDialog.dismiss();
                         if (onOkButtonClickListener != null)
                             onOkButtonClickListener.onClick(alertDialog, BUTTON_POSITIVE);
                     }
@@ -318,7 +318,7 @@ public class SelectDialog extends ModalBaseDialog {
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismissAllowingStateLoss();
+                        alertDialog.dismiss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                     }
@@ -365,7 +365,7 @@ public class SelectDialog extends ModalBaseDialog {
         }
         isDialogShown = true;
         getDialogLifeCycleListener().onShow(alertDialog);
-        kongzueDialogHelper.setCancelable(isCanCancel);
+        alertDialog.setCancelable(isCanCancel);
     }
     
     private void useTextInfo(TextView textView, TextInfo textInfo) {
@@ -384,12 +384,12 @@ public class SelectDialog extends ModalBaseDialog {
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public SelectDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
-        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
+        if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
     

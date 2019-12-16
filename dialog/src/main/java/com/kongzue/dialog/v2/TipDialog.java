@@ -289,22 +289,22 @@ public class TipDialog extends BaseDialog {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
+                if (alertDialog != null) alertDialog.dismiss();
             }
         }, time);
-        
-        kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
-        kongzueDialogHelper.setCancelable(isCanCancel);
+
+        alertDialog.show();
+        alertDialog.setCancelable(isCanCancel);
     }
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public TipDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
-        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
+        if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
     

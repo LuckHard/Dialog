@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -15,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -242,18 +238,18 @@ public class WaitDialog extends BaseDialog {
         });
         
         getDialogLifeCycleListener().onShow(alertDialog);
-        
-        kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
-        kongzueDialogHelper.setCancelable(isCanCancel);
+
+        alertDialog.show();
+        alertDialog.setCancelable(isCanCancel);
     }
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public WaitDialog setCanCancel(boolean canCancel) {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
+        if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
     

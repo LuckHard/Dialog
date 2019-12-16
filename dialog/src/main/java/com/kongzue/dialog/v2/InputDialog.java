@@ -181,7 +181,7 @@ public class InputDialog extends ModalBaseDialog {
             public void onDismiss() {
                 dialogList.remove(inputDialog);
                 if (bkg != null) bkg.removeAllViews();
-                if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
+                if (alertDialog != null) alertDialog.dismiss();
                 if (customView != null) customView.removeAllViews();
                 if (onCancelButtonClickListener != null)
                     onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
@@ -201,7 +201,7 @@ public class InputDialog extends ModalBaseDialog {
             case STYLE_KONGZUE:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select, null);
                 alertDialog.setView(rootView);
-                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
+                alertDialog.show();
                 
                 bkg = (LinearLayout) rootView.findViewById(R.id.bkg);
                 txtDialogTitle = rootView.findViewById(R.id.txt_dialog_title);
@@ -252,7 +252,7 @@ public class InputDialog extends ModalBaseDialog {
                 btnSelectNegative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        kongzueDialogHelper.dismissAllowingStateLoss();
+                        alertDialog.dismiss();
                         if (onCancelButtonClickListener != null)
                             onCancelButtonClickListener.onClick(alertDialog, BUTTON_NEGATIVE);
                         onCancelButtonClickListener = null;
@@ -280,7 +280,7 @@ public class InputDialog extends ModalBaseDialog {
                 
                 break;
             case STYLE_MATERIAL:
-                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
+                kongzueDialogHelper.show();
                 
                 txtInput = new EditText(context);
                 txtInput.setSingleLine();
@@ -348,7 +348,7 @@ public class InputDialog extends ModalBaseDialog {
             case STYLE_IOS:
                 rootView = LayoutInflater.from(context).inflate(R.layout.dialog_select_ios, null);
                 alertDialog.setView(rootView);
-                kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
+                alertDialog.show();
                 
                 window.setWindowAnimations(R.style.iOSAnimStyle);
                 bkg = (RelativeLayout) rootView.findViewById(R.id.bkg);
@@ -455,7 +455,7 @@ public class InputDialog extends ModalBaseDialog {
         }
         isDialogShown = true;
         getDialogLifeCycleListener().onShow(alertDialog);
-        kongzueDialogHelper.setCancelable(isCanCancel);
+        alertDialog.setCancelable(isCanCancel);
     }
     
     private void useTextInfo(TextView textView, TextInfo textInfo) {
@@ -474,12 +474,12 @@ public class InputDialog extends ModalBaseDialog {
     
     @Override
     public void doDismiss() {
-        if (kongzueDialogHelper != null) kongzueDialogHelper.dismissAllowingStateLoss();
+        if (alertDialog != null) alertDialog.dismiss();
     }
     
     public InputDialog setCanCancel(boolean canCancel) {
         isCanCancel = canCancel;
-        if (kongzueDialogHelper != null) kongzueDialogHelper.setCancelable(canCancel);
+        if (alertDialog != null) alertDialog.setCancelable(canCancel);
         return this;
     }
     

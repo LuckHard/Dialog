@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -29,18 +28,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kongzue.dialog.R;
-import com.kongzue.dialog.listener.OnDismissListener;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.BlurView;
-import com.kongzue.dialog.util.KongzueDialogHelper;
 import com.kongzue.dialog.util.TextInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.DialogInterface.BUTTON_NEGATIVE;
-import static com.kongzue.dialog.v2.DialogSettings.*;
+import static com.kongzue.dialog.v2.DialogSettings.DEBUGMODE;
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_KONGZUE;
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_MATERIAL;
+import static com.kongzue.dialog.v2.DialogSettings.blur_alpha;
+import static com.kongzue.dialog.v2.DialogSettings.dialogButtonTextInfo;
+import static com.kongzue.dialog.v2.DialogSettings.menuTextInfo;
+import static com.kongzue.dialog.v2.DialogSettings.use_blur;
 
 public class BottomMenu extends BaseDialog {
     
@@ -163,9 +166,7 @@ public class BottomMenu extends BaseDialog {
     private BlurView blurCancel;
     
     private RelativeLayout boxList;
-    
-    private KongzueDialogHelper kongzueDialogHelper;
-    
+
     @Override
     public void showDialog() {
         log("启动底部菜单 -> " + menuText.toString());
@@ -252,9 +253,9 @@ public class BottomMenu extends BaseDialog {
             getDialogLifeCycleListener().onCreate(alertDialog);
             
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
-            kongzueDialogHelper = new KongzueDialogHelper().setAlertDialog(alertDialog, new OnDismissListener() {
+            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
-                public void onDismiss() {
+                public void onDismiss(DialogInterface dialog) {
                     dialogList.remove(bottomMenu);
                     if (customView != null) customView.removeAllViews();
                     getDialogLifeCycleListener().onDismiss();
@@ -263,8 +264,9 @@ public class BottomMenu extends BaseDialog {
                     activity = null;
                 }
             });
-            kongzueDialogHelper.show(fragmentManager, "kongzueDialog");
-            kongzueDialogHelper.setCancelable(true);
+
+            alertDialog.show();
+            alertDialog.setCancelable(true);
             
             alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override

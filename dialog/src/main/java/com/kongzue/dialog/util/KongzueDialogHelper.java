@@ -19,45 +19,25 @@ import com.kongzue.dialog.listener.OnDismissListener;
  * Mail: myzcxhh@live.cn
  * CreateTime: 2018/12/14 13:28
  */
-public class KongzueDialogHelper extends DialogFragment {
-    
+public class KongzueDialogHelper {
+
     private AlertDialog alertDialog;
     private OnDismissListener onDismissListener;
-    
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return alertDialog;
-    }
-    
+
     public KongzueDialogHelper setAlertDialog(AlertDialog alertDialog, OnDismissListener onDismissListener) {
         this.alertDialog = alertDialog;
         this.onDismissListener = onDismissListener;
         return this;
     }
-    
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (onDismissListener != null) onDismissListener.onDismiss();
+
+    public void show() {
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                onDismissListener.onDismiss();
+            }
+        });
+        alertDialog.show();
     }
-    
-    @Override
-    public void show(FragmentManager manager, String tag) {
-        try {
-            FragmentTransaction ft = manager.beginTransaction();
-            ft.add(this, tag);
-            ft.commitAllowingStateLoss();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (getDialog() == null) {
-            setShowsDialog(false);
-        }
-        super.onActivityCreated(savedInstanceState);
-    }
+
 }
