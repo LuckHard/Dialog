@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -252,7 +252,6 @@ public class BottomMenu extends BaseDialog {
             alertDialog.setCanceledOnTouchOutside(true);
             getDialogLifeCycleListener().onCreate(alertDialog);
             
-            FragmentManager fragmentManager = activity.getSupportFragmentManager();
             alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
